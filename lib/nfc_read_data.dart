@@ -39,8 +39,8 @@ class _NfcReadDataState extends State<NfcReadData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-        children: const [
+          title: const Row(
+        children: [
           Icon(Icons.document_scanner_rounded),
           SizedBox(width: 10),
           Text('카드 인식'),
@@ -48,7 +48,7 @@ class _NfcReadDataState extends State<NfcReadData> {
       )),
       body:  ListView(
         children: [
-          Padding(padding: const EdgeInsets.all(20.0),),
+          const Padding(padding: EdgeInsets.all(20.0),),
           GestureDetector(
               onTap: () => {                    
                     setState(() {
@@ -131,76 +131,76 @@ class _NfcReadDataState extends State<NfcReadData> {
                         child:Column(children: [
                           image,
                           DataTable(
-                          columns: [
+                          columns: const [
                             DataColumn(label: Text('구분')),
-                            DataColumn(label: Text('값')),                          
+                            DataColumn(label: Text('데이터')),                          
                           ],
                           rows: [                            
                             DataRow(
                               cells: [ 
-                                  DataCell(Text('카드타입')),
-                                  DataCell(Text('$cardType')),                                
+                                  const DataCell(Text('카드타입')),
+                                  DataCell(Text(cardType)),                                
                             ]
                             ),
                             DataRow(
                               cells: [ 
-                                  DataCell(Text('카드종류')),
-                                  DataCell(Text('$typeName')),                                
+                                  const DataCell(Text('카드종류')),
+                                  DataCell(Text(typeName)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('회원여부')),
-                                  DataCell(Text('$memberGubun')),                                
+                                  const DataCell(Text('회원여부')),
+                                  DataCell(Text(memberGubun)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('회원번호')),
-                                  DataCell(Text('$memberNo')),                                
+                                  const DataCell(Text('회원번호')),
+                                  DataCell(Text(memberNo)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('회원구분')),
-                                  DataCell(Text('$memberGubun')),                                
+                                  const DataCell(Text('회원구분')),
+                                  DataCell(Text(memberGubun)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('회원명')),
-                                  DataCell(Text('$memberName')),                                
+                                  const DataCell(Text('회원명')),
+                                  DataCell(Text(memberName)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('대소구분')),
-                                  DataCell(Text('$daesoGubun')),                                
+                                  const DataCell(Text('대소구분')),
+                                  DataCell(Text(daesoGubun)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('사용시작')),
-                                  DataCell(Text('$fromTime')),                                
+                                  const DataCell(Text('사용시작')),
+                                  DataCell(Text(fromTime)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('사용종료')),
-                                  DataCell(Text('$toTime')),                                
+                                  const DataCell(Text('사용종료')),
+                                  DataCell(Text(toTime)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('블랙여부')),
-                                  DataCell(Text('$blacklist')),                                
+                                  const DataCell(Text('블랙여부')),
+                                  DataCell(Text(blacklist)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('사유')),
-                                  DataCell(Text('$reason')),                                
+                                  const DataCell(Text('사유')),
+                                  DataCell(Text(reason)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('생년월일')),
-                                  DataCell(Text('$idNo')),                                
+                                  const DataCell(Text('생년월일')),
+                                  DataCell(Text(idNo)),                                
                             ]
                             ),DataRow(
                               cells: [ 
-                                  DataCell(Text('전화번호')),
-                                  DataCell(Text('$telNo')),                                
+                                  const DataCell(Text('전화번호')),
+                                  DataCell(Text(telNo)),                                
                             ]
                             ),
                         
@@ -289,7 +289,7 @@ class _NfcReadDataState extends State<NfcReadData> {
               '${cachedMessage?.byteLength ?? 0} / ${tech.maxSize} bytes')));
 
       ndefWidgets.add(ListTile(
-          title: Text('Writable'), subtitle: Text('${tech.isWritable}')));
+          title: const Text('Writable'), subtitle: Text('${tech.isWritable}')));
 
       if (canMakeReadOnly != null) {
         ndefWidgets.add(ListTile(
@@ -303,12 +303,12 @@ class _NfcReadDataState extends State<NfcReadData> {
           final info = NdefRecordInfo.fromNdef(record);
           ndefWidgets.add(ListTile(
               title: Text('#$i ${info.title}'),
-              subtitle: Text('${info.subtitle}')));
+              subtitle: Text(info.subtitle)));
         });
       }
       return ndefWidgets;
     } else {
-      return [Text('No NDEF data found')];
+      return [const Text('No NDEF data found')];
     }
   }
 
