@@ -12,8 +12,8 @@ class NFCWrapperView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 250.0,
-        height: 250.0,
+        width: 200.0,
+        height: 200.0,
         decoration: BoxDecoration(
           color: _isScanning ? Colors.green[100] : Colors.amber[100],
           shape: BoxShape.circle,

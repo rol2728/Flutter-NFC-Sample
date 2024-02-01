@@ -11,7 +11,7 @@ class MainMenu extends StatelessWidget {
         children: const [
           Icon(Icons.nfc_rounded),
           SizedBox(width: 10),
-          Text('NFC Sample'),
+          Text('무주덕유산리조트 회원체크'),
         ],
       )),
       body: ListView(
@@ -29,28 +29,28 @@ class MainMenu extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       Icon(Icons.document_scanner_rounded),
-                      SizedBox(width: 10),
+                      SizedBox(width: 40, height: 40,),
                       Text(
-                        'NFC Read',
-                        style: TextStyle(fontSize: 20),
+                        '카드 인식',
+                        style: TextStyle(fontSize: 30),
                       ),
                     ],
                   )),
-              FilledButton.tonal(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/nfc/write');
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.edit_note_rounded),
-                      SizedBox(width: 10),
-                      Text(
-                        'NFC Write',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  )),
+              // FilledButton.tonal(
+              //     onPressed: () {
+              //       Navigator.pushNamed(context, '/nfc/write');
+              //     },
+              //     child: Row(
+              //       mainAxisSize: MainAxisSize.min,
+              //       children: const [
+              //         Icon(Icons.edit_note_rounded),
+              //         SizedBox(width: 10),
+              //         Text(
+              //           'NFC Write',
+              //           style: TextStyle(fontSize: 20),
+              //         ),
+              //       ],
+              //     )),
             ],
           ),
         ],

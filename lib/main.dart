@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Démo NFC avec Flutter',
+      title: '회원카드 체크',
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lime),
       routes: {
         '/': (context) => const MainMenu(),
         '/nfc/write': (context) => NfcWriteData(),
         '/nfc/read': (context) => NfcReadData(),
       },
-      initialRoute: '/',
+      initialRoute: '/nfc/read',
     );
   }
 }
