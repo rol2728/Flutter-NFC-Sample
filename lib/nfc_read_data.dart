@@ -100,8 +100,16 @@ class _NfcReadDataState extends State<NfcReadData> {
                   String daesoGubun1 = _jsonData['DAESO_GUBUN1'];
                   String category = _jsonData['Category'];
 
-                  image = Image.memory(base64.decode(picture1));
-                  Uint8List pictureBytes = base64.decode(picture1);                  
+                  try{
+                    if(picture1.length > 10)
+                    {
+                      image = Image.memory(base64.decode(picture1));
+                    }else{
+                      image = Image.asset('assets/muju.png', height: 100, width: 100, fit: BoxFit.fill,);
+                    }
+                  }catch(e){
+                    print(e.toString());
+                  }
 
                   if(_jsonData.isNotEmpty)
                   {
