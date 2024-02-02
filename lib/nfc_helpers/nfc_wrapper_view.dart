@@ -15,7 +15,7 @@ class NFCWrapperView extends StatelessWidget {
         width: 200.0,
         height: 200.0,
         decoration: BoxDecoration(
-          color: _isScanning ? Colors.green[100] : Colors.amber[100],
+          color: _isScanning ? Color.fromARGB(255, 224, 155, 50): Color.fromARGB(180, 25, 127, 243),
           shape: BoxShape.circle,
         ),
         child: Center(

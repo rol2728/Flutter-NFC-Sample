@@ -7,11 +7,12 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Color(0xff4a69bd),
           title: Row(
         children: const [
-          Icon(Icons.nfc_rounded),
+          Icon(Icons.nfc_rounded, color: Colors.white,),
           SizedBox(width: 10),
-          Text('무주덕유산리조트 회원체크'),
+          Text('무주덕유산리조트 회원체크', style: TextStyle(color: Colors.white,),),
         ],
       )),
       body: ListView(
@@ -31,7 +32,7 @@ class MainMenu extends StatelessWidget {
                       Icon(Icons.document_scanner_rounded),
                       SizedBox(width: 40, height: 40,),
                       Text(
-                        '카드 인식',
+                        '카드 확인',
                         style: TextStyle(fontSize: 30),
                       ),
                     ],

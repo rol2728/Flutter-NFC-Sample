@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '회원카드 체크',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lime),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Color(0x74b9ffff)),
       routes: {
         '/': (context) => const MainMenu(),
         '/nfc/write': (context) => NfcWriteData(),

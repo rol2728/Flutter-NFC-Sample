@@ -38,12 +38,14 @@ class _NfcReadDataState extends State<NfcReadData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Color(0x8f0c2461),
       appBar: AppBar(
+          backgroundColor: Color(0xff4a69bd),
           title: const Row(
         children: [
-          Icon(Icons.document_scanner_rounded),
+          Icon(Icons.document_scanner_rounded, color: Colors.white,),
           SizedBox(width: 10),
-          Text('카드 인식'),
+          Text('카드 확인', style: TextStyle(color: Colors.white,), ),
         ],
       )),
       body:  ListView(
