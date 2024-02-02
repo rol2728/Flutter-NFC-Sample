@@ -1,0 +1,10 @@
+version: '1.0'
+
+services:
+  flutter:
+    build:  
+      context: .           
+    image: rolplay/flutter:latest
+    volumes:
+      - /usr/src/app:/usr/src/app    
+    stdin_open: true

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -13,7 +12,6 @@ import 'dart:convert';
 import 'package:flutter/painting.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
-
 final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
 
 class NfcReadData extends StatefulWidget {
@@ -24,10 +22,7 @@ class NfcReadData extends StatefulWidget {
 }
 
 class _NfcReadDataState extends State<NfcReadData> {
-
-  
   var image = null;
-  
 
   Future<NfcTag?> _scannedTag = Future.value(null);
   bool _isScanning = false;
@@ -41,20 +36,29 @@ class _NfcReadDataState extends State<NfcReadData> {
       //backgroundColor: Color(0x8f0c2461),
       appBar: AppBar(
           backgroundColor: Color(0xff4a69bd),
-          title: const Row(
+          title: Row(
+            children: [
+              Icon(
+                Icons.document_scanner_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(width: 10),
+              Text(
+                '카드 확인',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          )),
+      body: ListView(
         children: [
-          Icon(Icons.document_scanner_rounded, color: Colors.white,),
-          SizedBox(width: 10),
-          Text('카드 확인', style: TextStyle(color: Colors.white,), ),
-        ],
-      )),
-      body:  ListView(
-        children: [
-          const Padding(padding: EdgeInsets.all(20.0),),
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+          ),
           GestureDetector(
-              onTap: () => {                    
+              onTap: () => {
                     setState(() {
-                      
                       _isScanning = true;
                       launchNfcSequence1();
                     })
@@ -66,21 +70,13 @@ class _NfcReadDataState extends State<NfcReadData> {
               future: printMember(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-
-                  
-                  if(_jsonData.isEmpty)
-                  {
-                      return const Center(
-                      child: Text(
-                          ''));
+                  if (_jsonData.isEmpty) {
+                    return const Center(child: Text(''));
                   }
-                
+
                   String useYn = _jsonData['USE_YN'];
-                  if(useYn == 'N')
-                  {
-                    return const Center(
-                      child: Text(
-                          '사용 불가카드입니다.'));
+                  if (useYn == 'N') {
+                    return const Center(child: Text('사용 불가카드입니다.'));
                   }
 
                   String cardType = _jsonData['CardType'];
@@ -102,174 +98,143 @@ class _NfcReadDataState extends State<NfcReadData> {
                   String daesoGubun1 = _jsonData['DAESO_GUBUN1'];
                   String category = _jsonData['Category'];
 
-                  try{
-                    if(picture1.length > 10)
-                    {
+                  try {
+                    if (picture1.length > 10) {
                       image = Image.memory(base64.decode(picture1));
-                    }else{
-                      image = Image.asset('assets/muju.png', height: 100, width: 100, fit: BoxFit.fill,);
+                    } else {
+                      image = Image.asset(
+                        'assets/muju.png',
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.fill,
+                      );
                     }
-                  }catch(e){
+                  } catch (e) {
                     print(e.toString());
                   }
 
-                  if(_jsonData.isNotEmpty)
-                  {
+                  if (_jsonData.isNotEmpty) {
+                    if (memberGubun == "회원") {
+                      final assetsAudioPlayer = AssetsAudioPlayer();
 
-                    if(memberGubun == "회원")
-                    {
-                        final assetsAudioPlayer = AssetsAudioPlayer();
+                      assetsAudioPlayer.open(
+                        Audio("assets/isMember.mp3"),
+                      );
 
-                        assetsAudioPlayer.open(
-                          Audio("assets/isMember.mp3"),
-                        );
-
-                        assetsAudioPlayer.play();  
+                      assetsAudioPlayer.play();
                     }
 
                     _jsonData = {};
 
                     return Container(
-                        child:Column(children: [
-                          image,
-                          DataTable(
+                        child: Column(
+                      children: [
+                        image,
+                        DataTable(
                           columns: const [
                             DataColumn(label: Text('구분')),
-                            DataColumn(label: Text('데이터')),                          
+                            DataColumn(label: Text('데이터')),
                           ],
-                          rows: [                            
-                            DataRow(
-                              cells: [ 
-                                  const DataCell(Text('카드타입')),
-                                  DataCell(Text(cardType)),                                
-                            ]
-                            ),
-                            DataRow(
-                              cells: [ 
-                                  const DataCell(Text('카드종류')),
-                                  DataCell(Text(typeName)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('회원여부')),
-                                  DataCell(Text(memberGubun)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('회원번호')),
-                                  DataCell(Text(memberNo)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('회원구분')),
-                                  DataCell(Text(memberGubun)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('회원명')),
-                                  DataCell(Text(memberName)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('대소구분')),
-                                  DataCell(Text(daesoGubun)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('사용시작')),
-                                  DataCell(Text(fromTime)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('사용종료')),
-                                  DataCell(Text(toTime)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('블랙여부')),
-                                  DataCell(Text(blacklist)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('사유')),
-                                  DataCell(Text(reason)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('생년월일')),
-                                  DataCell(Text(idNo)),                                
-                            ]
-                            ),DataRow(
-                              cells: [ 
-                                  const DataCell(Text('전화번호')),
-                                  DataCell(Text(telNo)),                                
-                            ]
-                            ),
-                        
-                            ],
-                          ),
-                        ],)
-                          
-                    );
-                   
-                  }else{
-                    return const Center(
-                      child: Text(
-                          ''));
-                  }                  
+                          rows: [
+                            DataRow(cells: [
+                              const DataCell(Text('카드타입')),
+                              DataCell(Text(cardType)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('카드종류')),
+                              DataCell(Text(typeName)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('회원여부')),
+                              DataCell(Text(memberGubun)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('회원번호')),
+                              DataCell(Text(memberNo)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('회원구분')),
+                              DataCell(Text(memberGubun)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('회원명')),
+                              DataCell(Text(memberName)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('대소구분')),
+                              DataCell(Text(daesoGubun)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('사용시작')),
+                              DataCell(Text(fromTime)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('사용종료')),
+                              DataCell(Text(toTime)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('블랙여부')),
+                              DataCell(Text(blacklist)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('사유')),
+                              DataCell(Text(reason)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('생년월일')),
+                              DataCell(Text(idNo)),
+                            ]),
+                            DataRow(cells: [
+                              const DataCell(Text('전화번호')),
+                              DataCell(Text(telNo)),
+                            ]),
+                          ],
+                        ),
+                      ],
+                    ));
+                  } else {
+                    return const Center(child: Text(''));
+                  }
                 } else {
-                  return const Center(
-                      child: Text(
-                          ''));
+                  return const Center(child: Text(''));
                 }
               },
             ),
           ),
-
         ],
       ),
     );
   }
-  
 
-  Future<Map<String, dynamic>> printMember() async{
+  Future<Map<String, dynamic>> printMember() async {
+    if (_isScanning) {
+      _jsonData = {};
+    } else {
+      _jsonData = await post();
+    }
 
-       if(_isScanning)
-      {
-        _jsonData = {};        
-      }else{
-        _jsonData = await post();  
-      }      
-
-      return _jsonData;
+    return _jsonData;
   }
 
-
- Future<Map<String, dynamic>> post() async {
- 
+  Future<Map<String, dynamic>> post() async {
     String baseUrl = 'http://61.81.162.4/BarcodeGondola/getBarcodeInfo.asp';
     //identiStr = "9B277B4808";
 
     print('post() url: $baseUrl');
 
-    if(identiStr == "")
-    {
+    if (identiStr == "") {
       return {};
-    }else{
-      http.Response response = await http.post(Uri.parse(baseUrl) ,
-          body: {'uid': identiStr});
+    } else {
+      http.Response response =
+          await http.post(Uri.parse(baseUrl), body: {'uid': identiStr});
       final int statusCode = response.statusCode;
       if (statusCode < 200 || statusCode > 400 || json == null) {
         //코드 입력
-      }   
-    
+      }
+
       return json.decode(utf8.decode(response.bodyBytes));
     }
-    
   }
-
-
-
 
   List<Widget> readNdef(NfcTag tag) {
     //Lister les données du tag
@@ -304,8 +269,7 @@ class _NfcReadDataState extends State<NfcReadData> {
           final record = cachedMessage.records[i];
           final info = NdefRecordInfo.fromNdef(record);
           ndefWidgets.add(ListTile(
-              title: Text('#$i ${info.title}'),
-              subtitle: Text(info.subtitle)));
+              title: Text('#$i ${info.title}'), subtitle: Text(info.subtitle)));
         });
       }
       return ndefWidgets;
@@ -314,8 +278,7 @@ class _NfcReadDataState extends State<NfcReadData> {
     }
   }
 
- final Uint8List command = Uint8List.fromList([0x02, 0x23, 0x00, 0x04]);
-
+  final Uint8List command = Uint8List.fromList([0x02, 0x23, 0x00, 0x04]);
 
   //Démarre la session de lecture NFC
   void getNfcData() async {
@@ -335,68 +298,56 @@ class _NfcReadDataState extends State<NfcReadData> {
     }
   }
 
-
-   Future<void> launchNfcSequence1() async {
+  Future<void> launchNfcSequence1() async {
     await NfcManager.instance.startSession(onDiscovered: (tag) async {
       final nfcV = NfcV.from(tag);
       List<int>? identi = nfcV?.identifier.toList();
       String identiStr1 = identi![0].toRadixString(16).toUpperCase();
-      if(identiStr1.length < 2)
-      {
+      if (identiStr1.length < 2) {
         identiStr1 = "0" + identiStr1;
       }
       String identiStr2 = identi![1].toRadixString(16).toUpperCase();
-      if(identiStr2.length < 2)
-      {
+      if (identiStr2.length < 2) {
         identiStr2 = "0" + identiStr2;
       }
       String identiStr3 = identi![2].toRadixString(16).toUpperCase();
-      if(identiStr3.length < 2)
-      {
+      if (identiStr3.length < 2) {
         identiStr3 = "0" + identiStr3;
       }
       String identiStr4 = identi![3].toRadixString(16).toUpperCase();
-      if(identiStr4.length < 2)
-      {
+      if (identiStr4.length < 2) {
         identiStr4 = "0" + identiStr4;
       }
       String identiStr5 = identi![4].toRadixString(16).toUpperCase();
-      if(identiStr5.length < 2)
-      {
+      if (identiStr5.length < 2) {
         identiStr5 = "0" + identiStr5;
       }
 
-      identiStr = identiStr1 + identiStr2 + identiStr3 + identiStr4 + identiStr5; 
+      identiStr =
+          identiStr1 + identiStr2 + identiStr3 + identiStr4 + identiStr5;
 
-
-    
       setState(() {
-          _scannedTag = Future.value(tag);
-          _isScanning = false;
-        });
-        NfcManager.instance.stopSession();
-
+        _scannedTag = Future.value(tag);
+        _isScanning = false;
+      });
+      NfcManager.instance.stopSession();
     });
   }
-
 
   // Transceive command twice
   Future<void> sequence(NfcV nfcV) async {
     try {
-      final answer1 = await nfcV.transceive(data: command);      
-      print(answer1.toString());      
+      final answer1 = await nfcV.transceive(data: command);
+      print(answer1.toString());
 
-      if(answer1[3] == 1)
-      {
+      if (answer1[3] == 1) {
         isMember = true;
-      }else{
+      } else {
         isMember = false;
       }
-
     } catch (e) {
       print(e);
       rethrow;
     }
   }
-
 }
