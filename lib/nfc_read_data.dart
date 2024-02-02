@@ -16,7 +16,7 @@ final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
 
 class NfcReadData extends StatefulWidget {
   NfcReadData({Key? key}) : super(key: key);
-
+  
   @override
   State<NfcReadData> createState() => _NfcReadDataState();
 }
